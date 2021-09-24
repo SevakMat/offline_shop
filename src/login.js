@@ -1,22 +1,21 @@
-import  {useState} from 'react';
-import WorkArea from './workArea';
+import {useHistory } from "react-router-dom";
+import {useRef} from "react"
 
 function Login(){
-
-  const [isLog, setisLog] = useState(false);
+  const history = useHistory();
+  const emailInput = useRef(null)
+  const passInput = useRef(null)
 
   function submit(){
-    console.log(document.getElementById("email").value);
-    console.log(document.getElementById("pass").value);
-    setisLog(!isLog);
+    console.log(passInput.current.value);
+    console.log(emailInput.current.value);
+    history.push(`/workarea`);
   }
   return(
     <div className="App">
-    <input id = "email" type = "email"/>
-    <input id = "pass" type = "password"/>
+    <input ref={emailInput} type = "email"/>
+    <input ref={passInput} type = "password"/>
     <button onClick ={submit}  type = "submit"> Submit</button>
-    {isLog && <WorkArea/>}
-
  </div>
   
   )
