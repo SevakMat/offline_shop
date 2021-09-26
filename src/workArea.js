@@ -3,42 +3,52 @@ import Items from "./items"
 import "./style.css"
 import {useState,useRef} from "react"
 
+import getItem from "./service/servise"
 
 function WorkArea(){
 
   const [sumPrice, setSumPrice] = useState(0)
   const ShtrixCod = useRef(null);
   const countInput = useRef(null);
-  const [itemList, setApranq]=useState([
-    {
-      type:"milk",
-      price:"500",
-    },
-    {
-      type:"meat",
-      price:"3000",
-    },
-    {
-      type:"bred",
-      price:"300",
-    }
-  ])
+
+  const [itemList, setApranq]=useState([])
+  const [worning, setWorning]=useState('')
+
   
 
   function confirm(){
-    console.log(ShtrixCod.current.value);
-    console.log(countInput.current.value);
-    setApranq([])
 
+    let x = getItem(ShtrixCod.current.value)
+    console.log("x",x);
+    if(x==undefined){
+      setWorning("worning")
+    }
+    else{
+      setWorning("")
+
+      let p = + x.price
+
+    p = p + sumPrice
+    
+    setSumPrice(p)
+
+    let l = itemList
+    l.push(x)
+
+    console.log(l);
+  }
   }
 
   return(
     <div>
-      <input ref={ShtrixCod} placeholder="123472473577563"/>
-      <input ref={countInput} placeholder="1" />
+      <input ref={ShtrixCod} placeholder="shtrix code"/>
+      <input ref={countInput} placeholder="count" />
       <button onClick={confirm} >confirm</button>
       <span className="price" >{sumPrice}</span>
+
       <Items test={itemList}/>
+      
+      <div>{worning}</div>
     </div>
   );
 }
