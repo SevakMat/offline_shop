@@ -10,33 +10,35 @@ function WorkArea(){
   const [sumPrice, setSumPrice] = useState(0)
   const ShtrixCod = useRef(null);
   const countInput = useRef(null);
-
-  const [itemList, setApranq]=useState([])
+  
+  const [itemList, setItemList]=useState([])
   const [worning, setWorning]=useState('')
 
-  
-
-  function confirm(){
-
-    let x = getItem(ShtrixCod.current.value)
-    console.log("x",x);
-    if(x==undefined){
+  function setItemInItemList(tempItem){
+    if(tempItem===undefined){
       setWorning("worning")
     }
     else{
       setWorning("")
+      if(countInput.current.value===''){
+        let newSumPrice = sumPrice + tempItem.price
+        setSumPrice(newSumPrice)
+        tempItem["count"]=1
+      }
+      else{
+        let newSumPrice = sumPrice + tempItem.price*countInput.current.value
+        setSumPrice(newSumPrice)
+        tempItem["count"]=countInput.current.value
+      }
 
-      let p = + x.price
 
-    p = p + sumPrice
-    
-    setSumPrice(p)
-
-    let l = itemList
-    l.push(x)
-
-    console.log(l);
+      setItemList(itemList => [...itemList, tempItem]);
+    }
   }
+  
+  function confirm(){
+    let tempItem = getItem(ShtrixCod.current.value)
+    setItemInItemList(tempItem)
   }
 
   return(
@@ -45,9 +47,7 @@ function WorkArea(){
       <input ref={countInput} placeholder="count" />
       <button onClick={confirm} >confirm</button>
       <span className="price" >{sumPrice}</span>
-
       <Items test={itemList}/>
-      
       <div>{worning}</div>
     </div>
   );
