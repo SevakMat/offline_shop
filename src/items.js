@@ -1,12 +1,14 @@
 import "./style.css"
 
 function Items({test}){
+  
   function cancleItem(){
     console.log(3333);
-    
+
   }
 
   function renderItems(itemList){
+
     return (
       <table  className="itemsArea">
             <thead>
@@ -22,7 +24,7 @@ function Items({test}){
           return(
               <tr key={i}>
                 <th >{item.type}</th>
-                <td>{item.count + "x"}</td>
+                <td>{item.count}</td>
                 <td>{item.price}</td>
                 <td onClick={cancleItem}>X</td>
               </tr>

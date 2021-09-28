@@ -20,6 +20,7 @@ function WorkArea(){
     }
     else{
       setWorning("")
+
       if(countInput.current.value===''){
         let newSumPrice = sumPrice + tempItem.price
         setSumPrice(newSumPrice)
@@ -28,17 +29,38 @@ function WorkArea(){
       else{
         let newSumPrice = sumPrice + tempItem.price*countInput.current.value
         setSumPrice(newSumPrice)
-        tempItem["count"]=countInput.current.value
+        
+        tempItem["count"]= + countInput.current.value
+      }
+    
+      console.log(tempItem);
+      let ind = true
+      
+      let newArr= itemList.map((item) => {
+        if(item.type === tempItem.type){
+          return  item.count  = tempItem.count
+        }
+      })
+
+      if(ind){ 
+        setItemList(itemList => [...itemList, tempItem]);
+      }else{
+        console.log("hesaaaaa",itemList); 
+        setItemList(newArr)
       }
 
-
-      setItemList(itemList => [...itemList, tempItem]);
     }
   }
   
   function confirm(){
     let tempItem = getItem(ShtrixCod.current.value)
-    setItemInItemList(tempItem)
+    console.log(tempItem);
+    
+      setItemInItemList(tempItem)
+
+
+    
+
   }
 
   return(
