@@ -1,5 +1,5 @@
 import {useHistory } from "react-router-dom";
-import {useRef} from "react"
+import {useRef,useEffect} from "react"
 
 function Login(){
 
@@ -7,20 +7,24 @@ function Login(){
 
   const emailInput = useRef(null)
   const passInput = useRef(null)
+  
 
   function submit(){
 
-    console.log(passInput.current.value);
-    console.log(emailInput.current.value);
-
-    history.push(`/workarea`);
+    localStorage.setItem("logined",1)
+    history.push('/workarea');
+    window.location.reload()
   }
 
+  useEffect(() => {
+    emailInput.current.focus();
+  }, []);
+  
   return(
     <div className="App">
-    <input ref={emailInput} type = "email"/>
-    <input ref={passInput} type = "password"/>
-    <button onClick ={submit}  type = "submit"> Submit</button>
+    <input ref={emailInput}/>
+    <input ref={passInput} />
+    <button onClick ={submit}  type = "submit"> log in</button>
  </div>
   
   )

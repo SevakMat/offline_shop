@@ -1,22 +1,28 @@
 import Login from "./login"
-import {Route} from "react-router-dom"
+import {Route,Switch,Redirect} from "react-router-dom"
 import WorkArea from './workArea';
 
 
 function App() {
-  return (
-    <div>
 
-      <Route path="/login">
-        <Login/>
-      </Route>
 
-      <Route  path="/workarea">
-        <WorkArea/>
-      </Route>
-      
-    </div>
-  );
+  const isLogin = localStorage.getItem("logined");
+  function Routers(){
+
+    return(
+      <Switch> 
+        <Route exact path="/login">
+          {!isLogin ? <Login/>:<Redirect to="/workarea"/> }
+        </Route>
+
+        <Route exact path="/workarea">
+          {isLogin ? <WorkArea/>: <Redirect to="/login"/>}
+        </Route>
+      </Switch>
+   
+    )
+  }
+  return <Routers/>
 }
 
 export default App;

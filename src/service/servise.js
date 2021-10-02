@@ -3,12 +3,15 @@ import {array} from "../db/db"
 
 function getItem(code){
 
-  for(let i =0;i<array.length;i++){
+  for(let i = 0; i < array.length; i++){
     if(array[i].code === code){
-      console.log("ka");
-      return array[i]
-    }else{
-      console.log("chka nman ban ");
+      let x = {
+        type:array[i].type,
+        price:array[i].price,
+        code:array[i].code,
+        count:array[i].count
+      }
+      return x
     }
   }
 }
