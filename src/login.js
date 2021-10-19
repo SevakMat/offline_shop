@@ -16,9 +16,19 @@ function Login(){
     window.location.reload()
   }
 
+  const handleKeyDown = (event) => {
+    if(event.key==="Enter"){
+      submit()
+      console.log("yess");
+    }
+  }
   useEffect(() => {
     emailInput.current.focus();
-  }, []);
+    document.addEventListener("keydown", handleKeyDown);
+
+  });
+
+  
   
   return(
     <div className="App">
